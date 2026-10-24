@@ -480,6 +480,16 @@ details summary{color:var(--ink)}
 .final .box{box-shadow:0 18px 40px rgba(0,0,0,.35),inset 0 0 0 2px rgba(255,213,74,.4)}
 .mob-cta{background:rgba(8,20,64,.95);box-shadow:0 -2px 14px rgba(0,0,0,.35)}
 .mob-cta .btn-out{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.55)}
+
+/* header turns see-through on scroll */
+.top{transition:background-color .35s ease,box-shadow .35s ease,padding .35s ease}
+.top.scrolled{background:rgba(8,20,61,.55)!important;backdrop-filter:blur(14px) saturate(140%)!important;-webkit-backdrop-filter:blur(14px) saturate(140%)!important;box-shadow:0 8px 24px rgba(0,0,0,.25)!important}
+.top.scrolled .wrap{padding-block:6px}
+.top .wrap{transition:padding .35s ease}
+.top.scrolled .mw-logo{height:34px}
+.mw-logo{transition:height .35s ease}
+.top.scrolled::after{opacity:.6}
+@media (max-width:600px){.top.scrolled .mw-logo{height:26px}}
 </style>
 </head>
 <body>
@@ -804,6 +814,16 @@ details summary{color:var(--ink)}
       cards.forEach(function(c){c.hidden=!(f==='all'||c.getAttribute('data-c')===f)});
     });
   });
+})();
+</script>
+
+<script>
+(function(){
+  var h=document.querySelector('.top'); if(!h) return;
+  var t=false;
+  function on(){ h.classList.toggle('scrolled', window.scrollY>40); t=false; }
+  window.addEventListener('scroll',function(){ if(!t){ t=true; requestAnimationFrame(on); } },{passive:true});
+  on();
 })();
 </script>
 </body>
